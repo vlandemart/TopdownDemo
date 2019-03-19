@@ -59,7 +59,7 @@ public class Gun : MonoBehaviour
 
 	protected virtual void StartProjectile()
 	{
-		Instantiate(projectile, shootingPoing.transform.position, Quaternion.identity);
+		Instantiate(projectile, shootingPoing.transform.position, transform.rotation);
 	}
 
 	/// <summary>
