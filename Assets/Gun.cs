@@ -27,14 +27,6 @@ public class Gun : MonoBehaviour
 		currentClipSize = clipSize;
 	}
 
-	void Update()
-	{
-		if(Input.GetMouseButton(0))
-			Shoot();
-		if (Input.GetKeyDown(KeyCode.R))
-			Reload();
-	}
-
 	/// <summary>
 	/// Method handles shooting cooldown, reloading and ammo wasting.
 	/// Returns true if the shot was successful.

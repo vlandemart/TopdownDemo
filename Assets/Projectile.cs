@@ -17,7 +17,7 @@ public class Projectile : MonoBehaviour
 
 	void Update()
 	{
-		transform.position += Vector3.forward * speed * Time.deltaTime;
+		transform.position += transform.forward * speed * Time.deltaTime;
 		CheckCollision();
 		if (Vector3.Distance(transform.position, startPos) >= 20f)  //Magic number - max distance
 			Destroy();
