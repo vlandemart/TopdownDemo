@@ -470,17 +470,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 1376619044}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d668bdc3bbbfe634bb8ed56f0b1df8fa, type: 3}
+  m_Script: {fileID: 11500000, guid: cbc339940faa8957092c03b01b26b91d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   shootCD: 1
-  damage: 1
+  damage: 0.3
   projectile: {fileID: 8040431449012386089, guid: ad1dda66ddd3322dfa4e8612a636cdd2,
     type: 3}
   clipSize: 5
-  reloadTime: 2
+  reloadTime: 0.6
   ammoPerReload: 1
   shootingPoing: {fileID: 1816608495}
+  inaccuracy: 20
+  projectileAmount: 5
 --- !u!1 &1499854941
 GameObject:
   m_ObjectHideFlags: 0

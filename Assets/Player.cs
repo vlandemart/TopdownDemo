@@ -19,6 +19,8 @@ public class Player : MonoBehaviour, IDamagable
 
 	void Update()
 	{
+		if (Dead)
+			return;
 		GetInput();
 	}
 

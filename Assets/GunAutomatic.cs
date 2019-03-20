@@ -1,12 +1,12 @@
 ﻿using UnityEngine;
 
-public class Machinegun : Gun
+public class GunAutomatic : Gun
 {
 	public override bool Shoot()
 	{
 		if (base.Shoot())
 		{
-			StartProjectile();
+			StartProjectile(Quaternion.identity);
 			return true;
 		}
 		return false;

@@ -17,6 +17,8 @@ public class Gun : MonoBehaviour
 	private int ammoPerReload = 5;
 	[SerializeField]
 	private Transform shootingPoing = null;
+	[SerializeField]
+	protected float inaccuracy = 5f;
 
 	private float currentCD = 0;
 	private int currentClipSize;
@@ -49,9 +51,11 @@ public class Gun : MonoBehaviour
 		return true;
 	}
 
-	protected virtual void StartProjectile()
+	protected virtual void StartProjectile(Quaternion rot)
 	{
-		Instantiate(projectile, shootingPoing.transform.position, transform.rotation);
+		if (rot == Quaternion.identity)
+			rot = Quaternion.Euler(0, Random.Range(-inaccuracy, inaccuracy), 0);
+		Instantiate(projectile, shootingPoing.transform.position, transform.rotation * rot);
 	}
 
 	/// <summary>

@@ -8,6 +8,7 @@ public class Projectile : MonoBehaviour
 	private float speed = 3f;
 	private float damage = 1f;
 	private Vector3 startPos = Vector3.zero;
+	private float maxTravelDistance = 20f;
 
 	public void SetUp(float _damage)
 	{
@@ -19,7 +20,7 @@ public class Projectile : MonoBehaviour
 	{
 		transform.position += transform.forward * speed * Time.deltaTime;
 		CheckCollision();
-		if (Vector3.Distance(transform.position, startPos) >= 20f)  //Magic number - max distance
+		if (Vector3.Distance(transform.position, startPos) >= maxTravelDistance)
 			Destroy();
 	}
 

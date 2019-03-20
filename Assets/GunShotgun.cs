@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class Shotgun : Gun
+public class GunShotgun : Gun
 {
 	[SerializeField]
 	private int projectileAmount = 3;
@@ -9,9 +9,11 @@ public class Shotgun : Gun
 	{
 		if (base.Shoot())
 		{
+			float spreadStep = inaccuracy / projectileAmount;
 			for (int i = 0; i < projectileAmount; i++)
 			{
-				StartProjectile();
+				Quaternion bulletRot = Quaternion.Euler(0, Random.Range(-spreadStep, spreadStep), 0);
+				StartProjectile(bulletRot);
 			}
 			return true;
 		}
