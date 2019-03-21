@@ -47,6 +47,7 @@ public class Gun : MonoBehaviour
 
 		currentCD = Time.time + shootCD;
 		currentClipSize--;
+		HUDManager.Instance.UpdateAmmoCounter(currentClipSize, clipSize);
 		//TODO shoot sound
 		return true;
 	}
@@ -84,7 +85,7 @@ public class Gun : MonoBehaviour
 			yield return new WaitForSeconds(reloadTime);
 			//TODO insert ammo sound
 			currentClipSize += ammoPerReload;
-			Debug.Log("Reloaded " + currentClipSize + "/" + clipSize);
+			HUDManager.Instance.UpdateAmmoCounter(currentClipSize, clipSize);
 		}
 		reloading = false;
 	}

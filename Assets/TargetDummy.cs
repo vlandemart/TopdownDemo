@@ -27,5 +27,6 @@ public class TargetDummy : MonoBehaviour, IDamagable
 	{
 		Dead = true;
 		Debug.Log("I am dead");
+		GameController.Instance.AddScore(100);
 	}
 }
