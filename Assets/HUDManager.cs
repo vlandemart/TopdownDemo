@@ -8,6 +8,8 @@ public class HUDManager : MonoBehaviour
 	private Text scoreText = null;
 	[SerializeField]
 	private Text ammoText = null;
+	[SerializeField]
+	private Text interactableText = null;
 
 	void Awake()
 	{
@@ -31,5 +33,16 @@ public class HUDManager : MonoBehaviour
 	public void UpdateAmmoCounter(int currentAmmo, int maxAmmo)
 	{
 		ammoText.text = currentAmmo + "/" + maxAmmo;
+	}
+
+	public void SetInteractableText(string text)
+	{
+		interactableText.gameObject.SetActive(true);
+		interactableText.text = text;
+	}
+
+	public void HideInteractableText()
+	{
+		interactableText.gameObject.SetActive(false);
 	}
 }

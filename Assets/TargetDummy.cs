@@ -1,14 +1,20 @@
 ﻿using UnityEngine;
 
-public class TargetDummy : MonoBehaviour, IDamagable
+public class TargetDummy : PooledBehaviour, IDamagable
 {
-	[SerializeField]
-	private float startHealth = 5f;
 	public float Health { get; private set; }
 	public bool Dead { get; private set; }
+	[SerializeField]
+	private float startHealth = 5f;
 
 	void Start()
 	{
+		SetUp();
+	}
+
+	public override void SetUp()
+	{
+		base.SetUp();
 		Health = startHealth;
 		Dead = false;
 	}
@@ -26,7 +32,7 @@ public class TargetDummy : MonoBehaviour, IDamagable
 	void Die()
 	{
 		Dead = true;
-		Debug.Log("I am dead");
 		GameController.Instance.AddScore(100);
+		ReturnToPool();
 	}
 }

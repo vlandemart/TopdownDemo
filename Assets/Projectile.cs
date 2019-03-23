@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Projectile : MonoBehaviour
+public class Projectile : PooledBehaviour
 {
 	[SerializeField]
 	private float speed = 3f;
@@ -45,6 +45,6 @@ public class Projectile : MonoBehaviour
 
 	void Destroy()
 	{
-		this.gameObject.SetActive(false);
+		ReturnToPool();
 	}
 }

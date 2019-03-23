@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections.Generic;
 
 [RequireComponent(typeof(PlayerMovement))]
 public class Player : MonoBehaviour, IDamagable
@@ -8,12 +9,16 @@ public class Player : MonoBehaviour, IDamagable
 	[SerializeField]
 	private float startHealth = 5f;
 	[SerializeField]
-	private Gun currentGun = null;
+	private Gun currentWeapon = null;
+	[SerializeField]
+	private Transform hand = null;
 	private PlayerMovement playerMovement = null;
+	public IInteractable Interactable = null;
 
 	void Start()
 	{
 		playerMovement = GetComponent<PlayerMovement>();
+		hand = transform.GetChild(0);
 		Health = startHealth;
 	}
 
@@ -29,13 +34,36 @@ public class Player : MonoBehaviour, IDamagable
 		Vector3 moveVector = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
 		playerMovement.MoveVector = moveVector;
 
-		if (currentGun)
+		if (currentWeapon)
 		{
 			if (Input.GetMouseButton(0))
-				currentGun.Shoot();
+				currentWeapon.Shoot();
 			if (Input.GetKeyDown(KeyCode.R))
-				currentGun.Reload();
+				currentWeapon.Reload();
 		}
+
+		if (Input.GetKeyDown(KeyCode.E))
+			Interact();
+	}
+
+	private void Interact()
+	{
+		if (Interactable != null)
+			Interactable.Interact();
+	}
+
+	public void EquipWeapon(Gun gunToEquip)
+	{
+		if (currentWeapon)
+			DropWeapon();
+		currentWeapon = gunToEquip;
+		currentWeapon.EquipGun(hand);
+	}
+
+	public void DropWeapon()
+	{
+		currentWeapon.DropGun();
+		currentWeapon = null;
 	}
 
 	public void TakeDamage(float damage)
@@ -52,4 +80,6 @@ public class Player : MonoBehaviour, IDamagable
 		Dead = true;
 		Debug.Log("Player is dead");
 	}
+
+
 }

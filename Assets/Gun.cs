@@ -1,14 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Gun : MonoBehaviour
+public class Gun : Pickupable
 {
 	[SerializeField]
 	private float shootCD = 1f;
 	[SerializeField]
 	private float damage = 1f;
-	[SerializeField]
-	private Projectile projectile = null;
 	[SerializeField]
 	private int clipSize = 5;
 	[SerializeField]
@@ -47,7 +45,7 @@ public class Gun : MonoBehaviour
 
 		currentCD = Time.time + shootCD;
 		currentClipSize--;
-		HUDManager.Instance.UpdateAmmoCounter(currentClipSize, clipSize);
+		UpdateHUD();
 		//TODO shoot sound
 		return true;
 	}
@@ -56,7 +54,11 @@ public class Gun : MonoBehaviour
 	{
 		if (rot == Quaternion.identity)
 			rot = Quaternion.Euler(0, Random.Range(-inaccuracy, inaccuracy), 0);
-		Instantiate(projectile, shootingPoing.transform.position, transform.rotation * rot);
+
+		Projectile projectile = ProjectileController.Instance.PickProjectile();
+		projectile.transform.position = shootingPoing.position;
+		projectile.transform.rotation = transform.rotation * rot;
+		projectile.SetUp(damage);
 	}
 
 	/// <summary>
@@ -85,8 +87,34 @@ public class Gun : MonoBehaviour
 			yield return new WaitForSeconds(reloadTime);
 			//TODO insert ammo sound
 			currentClipSize += ammoPerReload;
-			HUDManager.Instance.UpdateAmmoCounter(currentClipSize, clipSize);
+			UpdateHUD();
 		}
 		reloading = false;
+	}
+
+	public override void Interact()
+	{
+		base.Interact();
+		Debug.Log(gameObject.name);
+		player.EquipWeapon(this);
+	}
+
+	public void EquipGun(Transform handTransform)
+	{
+		transform.parent = handTransform;
+		transform.position = handTransform.position;
+		transform.rotation = handTransform.rotation;
+		RemoveInteractable();
+	}
+
+	public void DropGun()
+	{
+		transform.parent = null;
+		transform.rotation = Quaternion.identity;
+	}
+
+	private void UpdateHUD()
+	{
+		HUDManager.Instance.UpdateAmmoCounter(currentClipSize, clipSize);
 	}
 }
