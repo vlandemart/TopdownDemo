@@ -1,4 +1,4 @@
-TopdownDemo
+<b>Topdown demo</b>
 <br>
 Little demo of Topdown Shooter game. <br>
 Was made as interview task. Features simple player controller, several weapon types and object pools for enemies, projectiles and etc. <br>
